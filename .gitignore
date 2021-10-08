@@ -1,0 +1,12 @@
+/node_modules
+
+node_modules
+package-lock.json
+
+.DS_Store
+
+.env
+.github/
+
+/build
+s3.json

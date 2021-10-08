@@ -1,45 +1,33 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import passport from "passport";
 
 const Router = express.Router();
 
 //Models
 import { UserModel } from "../../database/user";
-
+//Validation
+import { ValidateSignup, ValidateSignin } from "../../validation/auth";
 /*
 Route           signup
 Descrip         signup with email & password
 Params          None
 Access          Public
-Method          Post 
+Method          POST 
 */
 
 Router.post("/signup", async(req,res) => {
     try {
-       const { email, password, fullname, phoneNubner } = req.body.credentials;
-        
-       //Check whether email or phone exists
-       const checkUserByEmail = await UserModel.findOne({email});
-       const checkUserByPhone = await UserModel.findOne({phoneNumber});
+        await ValidateSignup(req.body.credentials);
 
-       if(checkUserByEmail || checkUserByPhone) {
-           return res.json({error: "User already exists"});
-       }
-
-       //hashing
-       const bcryptSalt = await bcrypt.genSalt(8);
-
-       const hashedPassword = await bcrypt.hash(password, bcryptSalt);
+       await UserModel.findEmailAndPhone(req.body.credentials);
 
        //DB
-       await UserModel.create({
-            ...req.body.credentials,
-            password: hashedPassword
-       });
+       const newUser = await UserModel.create(req.body.credentials);
 
        //JWT Auth Token
-       const token = jwt.sign({user: {fullname, email}}, "ZomatoApp");
+       const token =  newUser.generateJwtToken();
 
        return res.status(200).json({token});
 
@@ -48,5 +36,62 @@ Router.post("/signup", async(req,res) => {
         return res.status(500).json({error: error.message});
     }
 });
+
+/*
+Route           signin
+Descrip         signup with email & password
+Params          None
+Access          Public
+Method          POST 
+*/
+Router.post("/signin", async(req,res) => {
+    try {     
+        await ValidateSignin(req.body.credentials);
+        const user = await UserModel.findByEmailAndPassword(
+            req.body.credentials
+        );
+
+       //JWT Auth Token
+       const token =  user.generateJwtToken();
+
+       return res.status(200).json({token, status: "success"});
+
+
+    } catch (error) {
+        return res.status(500).json({error: error.message});
+    }
+});
+
+
+/*
+Route           /google
+Descrip         google signin
+Params          None
+Access          Public
+Method          GET 
+*/
+
+Router.get("/google", passport.authenticate("google",{
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ],
+    })
+    );
+    
+
+/*
+Route           /google/callback
+Descrip         google signin callback 
+Params          None
+Access          Public
+Method          GET 
+*/
+Router.get("/google/callback", passport.authenticate("google",{failureRedirect: "/"}),
+(req,res) => {
+  return res.json({token: req.session.passport.user.token});
+}
+);
+
 
 export default Router;
