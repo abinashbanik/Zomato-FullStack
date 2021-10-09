@@ -43,7 +43,7 @@ const LargeNav = () => {
                         <RiSearch2Line />
                         <input type="search" 
                                 className="w-full focus:outline-none"
-                                placeholder="Search fro restaurant, dish or cuisine" />
+                                placeholder="Search for restaurant,cuisine or dish" />
                     </div>
                 </div>
                 <div className="flex ml-28 gap-4 ">
