@@ -8,7 +8,7 @@ const HomeLayout = (props) => {
     return (
     <>  
         <Navbar />
-        <div className="conatiner mx-auto px-4 lg:px-20 ">{props.Children}</div>
+        <div className="conatiner mx-auto px-4 lg:px-20 ">{props.children}</div>
         
         <FoodTab />
     </>
