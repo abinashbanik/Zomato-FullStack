@@ -1,8 +1,12 @@
-
-
+//HOC
+import HomeLayoutHOC from "./HOC/Home.Hoc";
+//Component
+import Temp from "./Components/temp";
 function App() {
   return (
-    <div className="text-blue-700 text-2xl">Hello Tailwind</div>
+    <>
+      <HomeLayoutHOC path="/" exact component={Temp} />
+    </>
   );
 }
 
