@@ -11,8 +11,8 @@ const ImageGrid = (props) => {
                     className="w-full h-full rounded-lg object-cover"
                 />    
             </div>
-            <div className="hidden w-full h-80 md:flex gap-1">
-                <div className="w-7/12 h-full overflow-hidden">
+            <div className="hidden w-full h-96 md:flex gap-1">
+                <div className="w-full h-full overflow-hidden">
                     <img 
                         src={props.images[0]}
                         alt="restaurant image"
@@ -20,7 +20,7 @@ const ImageGrid = (props) => {
                     />
                 </div>
 
-                <div className="w-1/6 h-full flex flex-col gap-1 overflow-hidden ">
+                <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden ">
                     <img 
                         src={props.images[1]}
                         alt="restaurant image"
@@ -33,7 +33,7 @@ const ImageGrid = (props) => {
                     />
                 </div>
 
-                <div  className="w-1/6 h-full flex flex-col gap-1 overflow-hidden">
+                <div  className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
                     <div className="w-full h-full relative">
                         <img 
                             src={props.images[3]}
