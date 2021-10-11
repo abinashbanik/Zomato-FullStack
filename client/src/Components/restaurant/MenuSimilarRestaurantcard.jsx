@@ -13,7 +13,7 @@ const MenuSimilarRestaurantcard = (props) => {
               className="w-full h-full object-cover rounded-t-md"
             />
           </div>
-          <div className="flex flex-col gap-2 p-3">
+          <div className="flex flex-col gap-1 p-2">
             <h3 className="font-semibold text-lg">{props.title}</h3>
             <div className="flex items-center justify-between text-sm ">
               <span className="flex items-center gap-1">
