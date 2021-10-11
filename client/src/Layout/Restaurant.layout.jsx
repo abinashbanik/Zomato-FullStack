@@ -10,7 +10,7 @@ import ImageGrid from '../Components/restaurant/ImageGrid';
 import RestaurantInfo from "../Components/restaurant/RestaurantInfo";
 import InfoButtons from "../Components/restaurant/InfoButtons";
 import TabsContainer from '../Components/restaurant/Tabs';
-const RestaurantLayout = () => {
+const RestaurantLayout = (props) => {
     return (
         <>
         {" "}
@@ -44,9 +44,11 @@ const RestaurantLayout = () => {
                     <RiShareForwardLine /> Share
                 </InfoButtons>
             </div>
-              <div className="my-4">
-                <TabsContainer />
+              <div className="my-10">
+                  
+                <TabsContainer></TabsContainer>
               </div>
+              {props.children}
         </div>
         </>
     );
