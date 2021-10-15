@@ -24,18 +24,21 @@ const Brand = (props) => {
     prevArrow: <PrevArrow />,
   };
   return (
-    <div className="my-5 mb-32">
-      <Slider {...settings}>
-        {logos.map((logo) => (
-          <div className="w-32 h-48 mx-10 bg-white shadow">
-            <img
-              src={logo}
-              alt="brand"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </Slider>
+    <div className="my-5 mb-32 ">
+      <h1 className="text-4xl text-gray-700 ">Top Brands for you </h1>
+      <div className="my-4">
+        <Slider {...settings}>
+          {logos.map((logo) => (
+            <div className="w-20 h-40 gap-3  bg-white shadow ">
+              <img
+                src={logo}
+                alt="brand"
+                className="w-full h-full object-cover overflow-hidden gap-3"
+              />
+            </div>
+          ))}
+        </Slider>        
+      </div>
     </div>
   );
 };
